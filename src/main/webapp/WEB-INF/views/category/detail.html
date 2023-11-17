@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p th:text="${category.name}" style="font: bold"><p>
+<table th:border="1">
+    <tr>
+        <td>Id</td>
+        <td>Movie's Name</td>
+        <td>Director</td>
+        <td>Release Date</td>
+    </tr>
+    <tr th:each="mov:${movies}">
+        <td th:text="${mov.id}"></td>
+        <td th:text="${mov.name}"></td>
+        <td th:text="${mov.director}"></td>
+        <td th:text="${mov.date}"></td>
+    </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form method="post" action="/category/search">
+    <p>Search category:</p>
+    <input type="text" name="search" th:value="${search}">
+    <input type="submit" value="Search">
+</form>
+<br>
+<div>
+    <a href="/category/add">Add new movie categories</a>
+</div>
+<br>
+<table th:border="1">
+    <tr>
+        <td>Id</td>
+        <td style="text-align: center">Movie type</td>
+        <td style="text-align: center">Description</td>
+        <td>Update</td>
+        <td>Delete</td>
+    </tr>
+    <tr th:each="ca:${categories}">
+        <td th:text="${ca.id}"></td>
+        <td style="text-align: center"><a th:href="@{/category/detail/{id}(id = ${ca.id})}" th:text="${ca.name}"></a></td>
+        <td th:text="${ca.description}" style="text-align: center"></td>
+        <td><a th:href="@{/category/edit/{id}(id = ${ca.id})}">Update</a></td>
+        <td><a th:href="@{/category/delete/{id}(id = ${ca.id})}">Delete</a></td>
+    </tr>
+</table>
+</body>
+</html>

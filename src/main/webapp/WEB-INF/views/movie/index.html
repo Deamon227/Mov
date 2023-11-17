@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form method="post" action="/movie/search">
+    <p>Search movie:</p>
+    <input type="text" name="search" th:value="${search}">
+    <select name="category">
+        <option th:each="ca:${category}" th:value="${ca.id}" th:text="${ca.name}">
+        </option>
+    </select>
+    <input type="submit" value="Search">
+</form>
+<br>
+<div>
+    <a href="/movie/add">Add new movies</a>
+</div>
+<br>
+<table th:border="1">
+    <tr>
+        <td>Id</td>
+        <td style="text-align: center">Movie name</td>
+        <td style="text-align: center">Director</td>
+        <td style="text-align: center">Release date</td>
+        <td>Category</td>
+        <td>Update</td>
+        <td>Delete</td>
+    </tr>
+    <tr th:each="mv:${movies}">
+        <td th:text="${mv.id}"></td>
+        <td th:text="${mv.name}" style="text-align: center"></td>
+        <td th:text="${mv.director}" style="text-align: center"></td>
+        <td th:text="${mv.date}" style="text-align: center"></td>
+        <td th:text="${mv.category.name}" style="text-align: center"></td>
+        <td><a th:href="@{/movie/edit/{id}(id = ${mv.id})}">Update</a></td>
+        <td><a th:href="@{/movie/delete/{id}(id = ${mv.id})}">Delete</a></td>
+    </tr>
+</table>
+</body>
+</html>
