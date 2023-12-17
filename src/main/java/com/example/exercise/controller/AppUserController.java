@@ -1,6 +1,8 @@
 package com.example.exercise.controller;
 
+import com.example.exercise.exception.CustomNotFound;
 import com.example.exercise.model.AppUser;
+import com.example.exercise.model.Category;
 import com.example.exercise.service.app_user.AppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -8,6 +10,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/appuser")
@@ -30,6 +34,18 @@ public class AppUserController {
     public ResponseEntity<AppUser> remove(@PathVariable Long id){
         appUserService.remove(id);
         return new ResponseEntity<>(HttpStatus.MOVED_PERMANENTLY);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<AppUser> edit(@RequestBody AppUser appUser,@PathVariable Long id) throws CustomNotFound {
+        Optional<AppUser> a = appUserService.findById(id);
+        if (a.isPresent()){
+            appUser.setId(id);
+            appUserService.save(appUser);
+            return new ResponseEntity<>(appUser, HttpStatus.ACCEPTED);
+        }else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
 }
