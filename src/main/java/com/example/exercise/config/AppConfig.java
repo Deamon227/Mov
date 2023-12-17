@@ -1,5 +1,6 @@
 package com.example.exercise.config;
 
+import com.example.exercise.aspect.MyLogger;
 import com.example.exercise.formatter.MovieFormatter;
 import com.example.exercise.service.category.CategoryService;
 import org.springframework.beans.BeansException;
@@ -9,7 +10,9 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -29,8 +32,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.Properties;
-
+@EnableAspectJAutoProxy
 @EnableTransactionManagement
+@EnableSpringDataWebSupport
 @Configuration
 @EnableWebMvc
 @ComponentScan("com.example")
@@ -109,6 +113,11 @@ public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
         SpringTemplateEngine templateEngine = new SpringTemplateEngine();
         templateEngine.setTemplateResolver(templateResolver());
         return templateEngine;
+    }
+
+    @Bean
+    public MyLogger myLogger(){
+        return new MyLogger();
     }
 
     @Override

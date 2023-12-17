@@ -5,5 +5,20 @@
     <title>Title</title>
 </head>
 <body>
+<form method="post" th:object="${category}">
+    <div>
+        Category's Name: <input type="text" th:field="*{name}">
+    </div>
+    <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Invalid input</p>
+    <br>
+    <div>
+        Description: <input type="text" th:field="*{description}">
+    </div>
+    <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Invalid input</p>
+    <br>
+    <div>
+        <input type="submit" class="btn btn-warning" value="Add">
+    </div>
+</form>
 </body>
 </html>

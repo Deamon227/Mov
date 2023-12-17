@@ -1,4 +1,4 @@
-package com.example.exercise.model;
+package com.example.exercise.model.DTO;
 
 public interface ICountCategory{
     String getName();

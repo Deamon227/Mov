@@ -1,5 +1,6 @@
 package com.example.exercise.formatter;
 
+import com.example.exercise.exception.CustomNotFound;
 import com.example.exercise.model.Category;
 import com.example.exercise.service.category.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,12 @@ public class MovieFormatter implements Formatter<Category> {
 
     @Override
     public Category parse(String text, Locale locale) throws ParseException {
-        Optional<Category> category= categoryService.findById(Long.parseLong(text));
+        Optional<Category> category= null;
+        try {
+            category = categoryService.findById(Long.parseLong(text));
+        } catch (CustomNotFound e) {
+            throw new RuntimeException(e);
+        }
         return category.orElse(null);
     }
 

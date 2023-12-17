@@ -5,5 +5,19 @@
     <title>Title</title>
 </head>
 <body>
+<form method="post" th:object="${category}">
+    <input type="hidden" th:field="*{id}"/>
+    <div>
+        Category's Name: <input type="text" th:field="*{name}">
+    </div>
+    <br>
+    <div>
+        Description: <input type="text" th:field="*{description}">
+    </div>
+    <br>
+    <div>
+        <input type="submit" class="btn btn-warning" value="Update">
+    </div>
+</form>
 </body>
 </html>

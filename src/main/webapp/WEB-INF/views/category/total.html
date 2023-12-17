@@ -5,5 +5,15 @@
     <title>Title</title>
 </head>
 <body>
+<table th:border="1">
+    <tr>
+        <td>Category's name</td>
+        <td>Total movie number</td>
+    </tr>
+    <tr th:each="cat:${categories}">
+        <td th:text="${cat.getName()}"></td>
+        <td th:text="${cat.getNumber()}"></td>
+    </tr>
+</table>
 </body>
 </html>
